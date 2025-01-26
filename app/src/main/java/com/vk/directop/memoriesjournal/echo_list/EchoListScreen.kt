@@ -53,7 +53,7 @@ fun SplashScreen(modifier: Modifier = Modifier) {
                 .align(Alignment.Center)
         )
         Image(
-            imageVector = ImageVector.vectorResource(id = R.drawable.mood_light),
+            imageVector = ImageVector.vectorResource(id = R.drawable.mood),
             contentDescription = "mood",
             modifier = Modifier
                 .align(Alignment.Center)
