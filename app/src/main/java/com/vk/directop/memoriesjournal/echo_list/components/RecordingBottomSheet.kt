@@ -50,10 +50,6 @@ fun RecordingBottomSheet(
     elapsedTime: Long,
     onClose: () -> Unit,
     onAction: (EchoListAction) -> Unit,
-    onCancelClick: () -> Unit,
-    onStartStopClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    onResumeClick: () -> Unit
 ) {
     val timeText = formatTime(elapsedTime)
 
@@ -106,7 +102,13 @@ fun RecordingBottomSheet(
                     .size(50.dp)
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.secondary),
-                onClick = if (isRecording || isPaused) onStartStopClick else onResumeClick
+                onClick = {
+                    when {
+                        isRecording -> onAction(EchoListAction.OnStopRecord)
+                        isPaused -> onAction(EchoListAction.OnStartRecord)
+                        else -> onAction(EchoListAction.OnStartRecord)
+                    }
+                }
             ) {
                 Image(
                     imageVector = when {
@@ -123,7 +125,13 @@ fun RecordingBottomSheet(
             }
 
             IconButton(
-                onClick = if (isRecording) onPauseClick else onResumeClick
+                onClick = {
+                    when {
+                        isRecording -> onAction(EchoListAction.OnStartRecord)
+                        isPaused -> onAction(EchoListAction.OnStopRecord)
+                        else -> onAction(EchoListAction.OnStartRecord)
+                    }
+                }
             ) {
                 Image(
                     imageVector = when {
@@ -197,11 +205,7 @@ private fun RecordingBottomSheetPreview() {
             isPaused = true,
             elapsedTime = 545L,
             onClose = {},
-            onAction = {},
-            onCancelClick = {},
-            onStartStopClick = {},
-            onPauseClick = {},
-            onResumeClick = {}
+            onAction = {}
         )
     }
 }

@@ -75,11 +75,6 @@ fun EchoListScreen(
                     elapsedTime = 545L,
                     onClose = { isSheetOpen = false },
                     onAction = onAction,
-
-                    onCancelClick = {},
-                    onStartStopClick = {},
-                    onPauseClick = {},
-                    onResumeClick = {}
                 )
             }
         }
