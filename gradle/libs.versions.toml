@@ -10,9 +10,12 @@ activityCompose = "1.10.0"
 composeBom = "2024.04.01"
 splash = "1.0.1"
 
+sqlite = "2.5.0-alpha11"
 ksp = "2.0.20-1.0.24"
 compose-material-icons-extended = "1.7.2"
 room = "2.7.0-alpha11"
+
+koin = "3.5.6"
 
 
 [libraries]
@@ -34,6 +37,11 @@ androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", v
 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
+
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -43,3 +51,9 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 
+[bundles]
+koin = [
+    "koin-core",
+    "koin-android",
+    "koin-androidx-compose"
+]

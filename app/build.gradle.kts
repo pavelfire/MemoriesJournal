@@ -43,9 +43,9 @@ android {
     room {
         schemaDirectory("$projectDir/schemas")
     }
-    ksp {
-        arg("room.schemaLocation", "$projectDir/schemas")
-    }
+//    ksp {
+//        arg("room.schemaLocation", "$projectDir/schemas")
+//    }
 }
 
 dependencies {
@@ -53,6 +53,9 @@ dependencies {
 
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.sqlite.bundled)
+
+    implementation(libs.bundles.koin)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
