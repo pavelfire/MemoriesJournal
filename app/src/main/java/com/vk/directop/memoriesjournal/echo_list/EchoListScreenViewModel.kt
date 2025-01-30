@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vk.directop.memoriesjournal.core.data.AudioUseCase
 import com.vk.directop.memoriesjournal.core.data.EchoRecordEntity
+import com.vk.directop.memoriesjournal.core.presentation.util.formatTime
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
 import com.vk.directop.memoriesjournal.echo_list.models.toItemListState
@@ -50,6 +51,30 @@ class EchoListScreenViewModel(
     }
 
     private fun startPlaying(item: ItemUi) {
+        val currentState = _state.value
+        val currentlyPlaying = currentState.records.find { it.isPlaying }
+
+        if (currentlyPlaying?.filePath == item.filePath) {
+            useCase.stopPlaying()
+            _state.update { echoListState ->
+                echoListState.copy(
+                    records = echoListState.records.map {
+                        if (it.filePath == item.filePath) it.copy(isPlaying = false) else it
+                    }
+                )
+            }
+            return
+        }
+
+        currentlyPlaying?.let {
+            useCase.stopPlaying()
+            _state.update { echoListState ->
+                echoListState.copy(
+                    records = echoListState.records.map { it.copy(isPlaying = false) }
+                )
+            }
+        }
+
         _state.update { echoListState ->
             echoListState.copy(
                 records = echoListState.records.map {
@@ -57,9 +82,33 @@ class EchoListScreenViewModel(
                 }
             )
         }
-        useCase.startPlaying(File(item.filePath))
 
+        useCase.startPlaying(
+            File(item.filePath),
+            onCompletion = {
+                _state.update { echoListState ->
+                    echoListState.copy(
+                        records = echoListState.records.map {
+                            if (it.filePath == item.filePath) it.copy(isPlaying = false) else it
+                        }
+                    )
+                }
+            },
+            onProgress = { currentTime, totalTime ->
+                _state.update { echoListState ->
+                    echoListState.copy(
+                        records = echoListState.records.map {
+                            if (it.filePath == item.filePath) it.copy(
+                                currentTime = formatTime(currentTime),
+                                totalTime = formatTime(totalTime)
+                            ) else it
+                        }
+                    )
+                }
+            }
+        )
     }
+
 
     private fun stopPlaying() {
         useCase.stopPlaying()

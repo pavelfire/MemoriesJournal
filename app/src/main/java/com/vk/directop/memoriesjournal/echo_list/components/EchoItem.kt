@@ -75,9 +75,9 @@ fun EchoItem(
             }
             PlayPanel(
                 isPlaying = item.isPlaying,
-                currentTime = "6:15",
-                totalTime = "12:30",
-                progress = 0.5f,
+                currentTime = item.currentTime,
+                totalTime = item.totalTime,
+                progress = item.progress,
                 onPlayPauseClick = { onAction(EchoListAction.OnPlayClick(item)) }
             )
             TagList(item.tags)

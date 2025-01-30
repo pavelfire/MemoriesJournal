@@ -36,11 +36,11 @@ class AudioRepository(
         return dao.getAllRecords()
     }
 
-    fun startPlaying(file: File){
-        player.playFile(file)
+    fun startPlaying(file: File, onCompletion: () -> Unit, onProgress: (Int, Int) -> Unit) {
+        player.playFile(file, onCompletion, onProgress)
     }
 
-    fun stopPlaying(){
+    fun stopPlaying() {
         player.stop()
     }
 }

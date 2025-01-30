@@ -8,3 +8,10 @@ fun Long.toFormattedDate(): String {
     val formatter = SimpleDateFormat("dd/MM/yy HH:mm", Locale.getDefault())
     return formatter.format(Date(this))
 }
+
+fun formatTime(milliseconds: Int): String {
+    val totalSeconds = milliseconds / 1000
+    val minutes = totalSeconds / 60
+    val sec = totalSeconds % 60
+    return String.format(Locale.US, "%d:%02d", minutes, sec)
+}

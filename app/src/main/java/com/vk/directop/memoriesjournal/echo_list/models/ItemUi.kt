@@ -9,6 +9,9 @@ import com.vk.directop.memoriesjournal.core.presentation.util.toFormattedDate
 data class ItemUi(
     val id: String,
     val isPlaying: Boolean = false,
+    val currentTime: String = "",
+    val totalTime: String = "",
+    val progress: Float = 0.0f,
     val description: String,
     val filePath: String,
     val createdAt: String,

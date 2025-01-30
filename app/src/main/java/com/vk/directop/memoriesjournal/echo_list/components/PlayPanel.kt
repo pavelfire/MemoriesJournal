@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.util.Locale
 
 @Composable
 fun PlayPanel(
@@ -93,10 +94,4 @@ private fun PlayPanelDemo() {
         progress = 0.5f,
         onPlayPauseClick = { isPlaying = !isPlaying }
     )
-}
-
-fun formatTime(seconds: Int): String {
-    val minutes = seconds / 60
-    val sec = seconds % 60
-    return String.format("%d:%02d", minutes, sec)
 }
