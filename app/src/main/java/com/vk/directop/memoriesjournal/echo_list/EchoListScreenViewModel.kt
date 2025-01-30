@@ -60,6 +60,7 @@ class EchoListScreenViewModel(
                 isRecording = false
             )
         }
+        saveRecording("New entry")
     }
 
     fun pauseRecording() {

@@ -129,7 +129,7 @@ fun RecordingBottomSheet(
                     when {
                         isRecording -> onAction(EchoListAction.OnStartRecord)
                         isPaused -> onAction(EchoListAction.OnStopRecord)
-                        else -> onAction(EchoListAction.OnStartRecord)
+                        else -> onClose()
                     }
                 }
             ) {
@@ -142,7 +142,7 @@ fun RecordingBottomSheet(
                     contentDescription = when {
                         isRecording -> "pause"
                         isPaused -> "finish record"
-                        else -> "finish record"
+                        else -> "close"
                     }
                 )
             }

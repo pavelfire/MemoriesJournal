@@ -70,8 +70,8 @@ fun EchoListScreen(
                 sheetState = sheetState
             ) {
                 RecordingBottomSheet(
-                    isRecording = false,
-                    isPaused = false,
+                    isRecording = state.isRecording,
+                    isPaused = state.isPaused,
                     elapsedTime = 545L,
                     onClose = { isSheetOpen = false },
                     onAction = onAction,
