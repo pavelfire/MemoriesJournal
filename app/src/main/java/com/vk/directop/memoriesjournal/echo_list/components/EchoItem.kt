@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
@@ -55,26 +56,24 @@ fun EchoItem(
                 Text(
                     text = item.description,
                     fontSize = 16.sp,
+                    fontWeight = FontWeight.Bold,
                     fontFamily = InterFontFamily,
 
                     )
                 Text(
-                    text = item.createdAt.toString(),
+                    text = item.createdAt,
                     fontSize = 12.sp,
                     fontFamily = InterFontFamily,
                 )
             }
-
-            Text(
-                text = "here record ${item.filePath}",
-                fontSize = 12.sp,
-                fontFamily = InterFontFamily,
+            PlayPanel(
+                isPlaying = true,
+                currentTime = "6:15",
+                totalTime = "12:30",
+                progress = 0.5f,
+                onPlayPauseClick = {}
             )
-            Text(
-                text = "#tags ${item.tags}",
-                fontSize = 13.sp,
-                fontFamily = InterFontFamily,
-            )
+            TagList(item.tags)
         }
     }
 }
@@ -86,12 +85,12 @@ private fun EchoListItemPreview() {
     MaterialTheme {
         EchoItem(
             ItemUi(
-            description = "My Entry 1",
-            mood = Mood.EXCITED,
-            createdAt = 34343434,
-            tags = listOf("sds", "dsfdfg"),
-            filePath = "path of file"
-        )
+                description = "My Entry 1",
+                mood = Mood.EXCITED,
+                createdAt = "12/03/25 15:20",
+                tags = listOf("sds", "dsfdfg"),
+                filePath = "path of file"
+            )
         )
     }
 }

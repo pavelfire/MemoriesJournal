@@ -3,12 +3,13 @@ package com.vk.directop.memoriesjournal.echo_list.models
 import androidx.compose.runtime.Immutable
 import com.vk.directop.memoriesjournal.R
 import com.vk.directop.memoriesjournal.core.data.EchoRecordEntity
+import com.vk.directop.memoriesjournal.core.presentation.util.toFormattedDate
 
 @Immutable
 data class ItemUi(
     val description: String,
     val filePath: String,
-    val createdAt: Long,
+    val createdAt: String,
     val mood: Mood,
     val tags: List<String>
 )
@@ -34,7 +35,7 @@ enum class Mood {
 fun EchoRecordEntity.toItemListState(): ItemUi = ItemUi(
     description = description,
     filePath = filePath,
-    createdAt = createdAt,
+    createdAt = createdAt.toFormattedDate(),
     mood = mood,
     tags = tags
 )

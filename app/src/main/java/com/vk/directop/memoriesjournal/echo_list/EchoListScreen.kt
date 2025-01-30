@@ -16,14 +16,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.vk.directop.memoriesjournal.echo_list.components.EchoList
 import com.vk.directop.memoriesjournal.echo_list.components.EmptyList
 import com.vk.directop.memoriesjournal.echo_list.components.GradientFAB
 import com.vk.directop.memoriesjournal.echo_list.components.RecordingBottomSheet
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
+import com.vk.directop.memoriesjournal.ui.theme.InterFontFamily
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -46,7 +49,12 @@ fun EchoListScreen(
                 .padding(innerPadding)
                 .padding(16.dp)
         ) {
-            Text("Your EchoJournal")
+            Text(
+                text = "Your EchoJournal",
+                fontSize = 26.sp,
+                fontWeight = FontWeight.Bold,
+                fontFamily = InterFontFamily,
+            )
             if (state.records.isEmpty()) {
                 EmptyList()
             } else {
@@ -92,70 +100,70 @@ val recordsPreview = listOf(
     ItemUi(
         description = "My first Entry",
         mood = Mood.EXCITED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My Entry",
         mood = Mood.NEUTRAL,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My third Entry",
         mood = Mood.SAD,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My fourth Entry",
         mood = Mood.STRESSED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My Entry",
         mood = Mood.EXCITED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My first Entry",
         mood = Mood.EXCITED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My Entry",
         mood = Mood.NEUTRAL,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My third Entry",
         mood = Mood.SAD,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My fourth Entry",
         mood = Mood.STRESSED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
     ItemUi(
         description = "My Entry",
         mood = Mood.EXCITED,
-        createdAt = 34343434,
+        createdAt = "12/03/25 15:20",
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
