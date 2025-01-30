@@ -72,9 +72,17 @@ fun EchoListScreen(
                 RecordingBottomSheet(
                     isRecording = state.isRecording,
                     isPaused = state.isPaused,
-                    elapsedTime = 545L,
-                    onClose = { isSheetOpen = false },
-                    onAction = onAction,
+                    elapsedTime = "0:00",
+                    onAction = { action ->
+                        onAction(action)
+                        when (action) {
+                            is EchoListAction.OnCloseBottomSheet -> {
+                                isSheetOpen = false
+                            }
+
+                            else -> {}
+                        }
+                    }
                 )
             }
         }

@@ -1,5 +1,6 @@
 package com.vk.directop.memoriesjournal.echo_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vk.directop.memoriesjournal.core.data.AudioUseCase
@@ -31,15 +32,35 @@ class EchoListScreenViewModel(
         )
 
     private var currentFile: File? = null
+    private var isRecordingCompleted = false
 
     fun onAction(action: EchoListAction) {
         when (action) {
             is EchoListAction.OnItemClick -> {}
             is EchoListAction.OnSaveRecord -> saveRecording(action.description)
-            EchoListAction.OnStartRecord -> startRecording()
+            EchoListAction.OnStartRecord -> toggleRecording()
+            EchoListAction.OnPauseRecord -> togglePauseRecording()
             EchoListAction.OnStopRecord -> stopRecording()
             is EchoListAction.OnPlayClick -> startPlaying(action.record)
+            EchoListAction.OnCloseBottomSheet -> closeBottomSheet()
         }
+    }
+
+    private fun toggleRecording() {
+        if (isRecordingCompleted) {
+            return
+        }
+//        if (state.value.isRecording) {
+//            stopRecording()
+//        } else {
+//            startRecording()
+//        }
+        when {
+            state.value.isRecording && state.value.isPaused -> resumeRecording()
+            state.value.isRecording -> stopRecording()
+            else -> startRecording()
+        }
+        Log.d("myTag", "toggleRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun startRecording() {
@@ -50,9 +71,11 @@ class EchoListScreenViewModel(
                 isRecording = true
             )
         }
+        Log.d("myTag", "startRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun stopRecording() {
+        isRecordingCompleted = true
         useCase.stopRecording()
         _state.update { echoListState ->
             echoListState.copy(
@@ -60,29 +83,46 @@ class EchoListScreenViewModel(
                 isRecording = false
             )
         }
-        saveRecording("New entry")
+        Log.d("myTag", "stopRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
-    fun pauseRecording() {
+    private fun togglePauseRecording() {
+        if (state.value.isPaused) {
+            resumeRecording()
+        } else {
+            pauseRecording()
+        }
+        Log.d("myTag", "togglePauseRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
+    }
+
+    private fun pauseRecording() {
         if (state.value.isRecording && !state.value.isPaused) {
             useCase.pauseRecording()
             _state.update { echoListState ->
                 echoListState.copy(
-                    isPaused = true
+                    isPaused = true,
+                    isRecording = true
                 )
             }
         }
+        Log.d("myTag", "pauseRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
-    fun resumeRecording() {
+    private fun resumeRecording() {
         if (state.value.isRecording && state.value.isPaused) {
             useCase.resumeRecording()
             _state.update { echoListState ->
                 echoListState.copy(
                     isPaused = false,
+                    isRecording = true
                 )
             }
         }
+        Log.d("myTag", "resumeRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
+    }
+
+    private fun closeBottomSheet(){
+        isRecordingCompleted = false
     }
 
     private fun startPlaying(item: ItemUi) {
@@ -150,6 +190,7 @@ class EchoListScreenViewModel(
     }
 
     private fun saveRecording(description: String) {
+        isRecordingCompleted = false
         currentFile?.let { file ->
             val record = EchoRecordEntity(
                 id = UUID.randomUUID().toString(),

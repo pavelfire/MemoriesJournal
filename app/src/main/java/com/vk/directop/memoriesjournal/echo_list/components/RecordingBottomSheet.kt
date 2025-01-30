@@ -7,15 +7,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,26 +31,21 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vk.directop.memoriesjournal.R
-import com.vk.directop.memoriesjournal.core.presentation.util.formatTime
 import com.vk.directop.memoriesjournal.echo_list.EchoListAction
-
 
 @Composable
 fun RecordingBottomSheet(
     isRecording: Boolean,
     isPaused: Boolean,
-    elapsedTime: Long,
-    onClose: () -> Unit,
+    elapsedTime: String,
     onAction: (EchoListAction) -> Unit,
 ) {
-    val timeText = formatTime(elapsedTime)
-
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -75,7 +68,7 @@ fun RecordingBottomSheet(
         Spacer(modifier = Modifier.height(8.dp))
 
         Text(
-            text = timeText,
+            text = elapsedTime,
             style = MaterialTheme.typography.bodyLarge,
             color = MaterialTheme.colorScheme.onSurface,
             fontSize = 12.sp
@@ -89,7 +82,7 @@ fun RecordingBottomSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = onClose
+                onClick = { onAction(EchoListAction.OnCloseBottomSheet) }
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(id = R.drawable.cancel),
@@ -105,7 +98,7 @@ fun RecordingBottomSheet(
                 onClick = {
                     when {
                         isRecording -> onAction(EchoListAction.OnStopRecord)
-                        isPaused -> onAction(EchoListAction.OnStartRecord)
+                        isPaused -> onAction(EchoListAction.OnPauseRecord)
                         else -> onAction(EchoListAction.OnStartRecord)
                     }
                 }
@@ -125,11 +118,11 @@ fun RecordingBottomSheet(
             }
 
             IconButton(
-                onClick = {
+                onClick = {//{onAction(EchoListAction.OnPauseRecord)
                     when {
-                        isRecording -> onAction(EchoListAction.OnStartRecord)
-                        isPaused -> onAction(EchoListAction.OnStopRecord)
-                        else -> onClose()
+                        isRecording -> onAction(EchoListAction.OnPauseRecord)
+                        isPaused -> onAction(EchoListAction.OnStartRecord)
+                        else -> onAction(EchoListAction.OnCloseBottomSheet)
                     }
                 }
             ) {
@@ -144,6 +137,21 @@ fun RecordingBottomSheet(
                         isPaused -> "finish record"
                         else -> "close"
                     }
+                )
+            }
+
+            IconButton(
+                onClick = {
+                    onAction(EchoListAction.OnSaveRecord("Night marathon"))
+                    Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
+                    onAction(EchoListAction.OnCloseBottomSheet)
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = "Add",
+                    tint = Color.White,
+                    modifier = Modifier.size(24.dp)
                 )
             }
         }
@@ -165,26 +173,12 @@ fun RecordingBottomSheetOld(
             .padding(horizontal = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Button(onClick = { onAction(EchoListAction.OnStartRecord) }) {
-            Text("Start Recording")
-        }
-
-        Spacer(Modifier.height(8.dp))
-
-        Button(onClick = { onAction(EchoListAction.OnStopRecord) }) {
-            Text("Stop Recording")
-        }
-
-        Spacer(Modifier.height(16.dp))
-
         OutlinedTextField(
             value = description,
             onValueChange = { description = it },
             label = { Text("Description") }
         )
-
         Spacer(Modifier.height(16.dp))
-
         Button(onClick = {
             onAction(EchoListAction.OnSaveRecord(description))
             Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
@@ -203,8 +197,7 @@ private fun RecordingBottomSheetPreview() {
         RecordingBottomSheet(
             isRecording = true,
             isPaused = true,
-            elapsedTime = 545L,
-            onClose = {},
+            elapsedTime = "545L",
             onAction = {}
         )
     }
