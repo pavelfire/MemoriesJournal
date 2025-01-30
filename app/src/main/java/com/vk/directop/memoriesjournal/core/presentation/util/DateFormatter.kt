@@ -9,7 +9,7 @@ fun Long.toFormattedDate(): String {
     return formatter.format(Date(this))
 }
 
-fun formatTime(milliseconds: Int): String {
+fun formatTime(milliseconds: Long): String {
     val totalSeconds = milliseconds / 1000
     val minutes = totalSeconds / 60
     val sec = totalSeconds % 60

@@ -30,8 +30,6 @@ class EchoListScreenViewModel(
             EchoListState()
         )
 
-    private var isRecording = false
-    private var isPaused = false
     private var currentFile: File? = null
 
     fun onAction(action: EchoListAction) {
@@ -46,27 +44,43 @@ class EchoListScreenViewModel(
 
     private fun startRecording() {
         currentFile = useCase.startRecording()
-        isRecording = true
-        isPaused = false
+        _state.update { echoListState ->
+            echoListState.copy(
+                isPaused = false,
+                isRecording = true
+            )
+        }
     }
 
     private fun stopRecording() {
         useCase.stopRecording()
-        isRecording = false
-        isPaused = false
+        _state.update { echoListState ->
+            echoListState.copy(
+                isPaused = false,
+                isRecording = false
+            )
+        }
     }
 
     fun pauseRecording() {
-        if (isRecording && !isPaused) {
+        if (state.value.isRecording && !state.value.isPaused) {
             useCase.pauseRecording()
-            isPaused = true
+            _state.update { echoListState ->
+                echoListState.copy(
+                    isPaused = true
+                )
+            }
         }
     }
 
     fun resumeRecording() {
-        if (isRecording && isPaused) {
+        if (state.value.isRecording && state.value.isPaused) {
             useCase.resumeRecording()
-            isPaused = false
+            _state.update { echoListState ->
+                echoListState.copy(
+                    isPaused = false,
+                )
+            }
         }
     }
 

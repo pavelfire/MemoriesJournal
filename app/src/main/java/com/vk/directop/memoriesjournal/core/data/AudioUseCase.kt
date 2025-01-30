@@ -19,7 +19,7 @@ class AudioUseCase(private val repository: AudioRepository) {
     fun startPlaying(
         file: File,
         onCompletion: () -> Unit,
-        onProgress: (Int, Int) -> Unit
+        onProgress: (Long, Long) -> Unit
     ) = repository.startPlaying(file, onCompletion, onProgress)
 
     fun stopPlaying() = repository.stopPlaying()

@@ -12,7 +12,7 @@ class AndroidAudioPlayer(
 
     private var player: MediaPlayer? = null
 
-    override fun playFile(file: File, onCompletion: () -> Unit, onProgress: (Int, Int) -> Unit) {
+    override fun playFile(file: File, onCompletion: () -> Unit, onProgress: (Long, Long) -> Unit) {
         stop()
 
         player = MediaPlayer().apply {
@@ -26,11 +26,11 @@ class AndroidAudioPlayer(
             }
 
             setOnPreparedListener {
-                onProgress(0, duration)
+                onProgress(0, duration.toLong())
             }
 
             setOnBufferingUpdateListener { _, percent ->
-                onProgress(currentPosition, duration)
+                onProgress(currentPosition.toLong(), duration.toLong())
             }
         }
     }

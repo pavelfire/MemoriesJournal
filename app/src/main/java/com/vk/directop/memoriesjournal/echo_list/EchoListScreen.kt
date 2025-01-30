@@ -70,8 +70,16 @@ fun EchoListScreen(
                 sheetState = sheetState
             ) {
                 RecordingBottomSheet(
+                    isRecording = false,
+                    isPaused = false,
+                    elapsedTime = 545L,
                     onClose = { isSheetOpen = false },
-                    onAction = onAction
+                    onAction = onAction,
+
+                    onCancelClick = {},
+                    onStartStopClick = {},
+                    onPauseClick = {},
+                    onResumeClick = {}
                 )
             }
         }
@@ -85,7 +93,9 @@ private fun EchoListScreenPreview() {
         Scaffold { innerPadding ->
             EchoListScreen(
                 state = EchoListState(
-                    recordsPreview
+                    isRecording = true,
+                    isPaused = true,
+                    records = recordsPreview
                 ),
                 onAction = {},
                 modifier = Modifier

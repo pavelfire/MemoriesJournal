@@ -16,11 +16,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,7 +26,6 @@ import com.vk.directop.memoriesjournal.echo_list.EchoListAction
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
 import com.vk.directop.memoriesjournal.ui.theme.InterFontFamily
-import com.vk.directop.memoriesjournal.ui.theme.LightBackground
 
 @Composable
 fun EchoItem(
