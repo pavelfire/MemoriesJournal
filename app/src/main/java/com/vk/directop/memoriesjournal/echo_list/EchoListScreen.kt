@@ -4,11 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
@@ -24,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vk.directop.memoriesjournal.echo_list.components.EchoList
 import com.vk.directop.memoriesjournal.echo_list.components.EmptyList
+import com.vk.directop.memoriesjournal.echo_list.components.GradientFAB
 import com.vk.directop.memoriesjournal.echo_list.components.RecordingBottomSheet
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
@@ -37,14 +34,10 @@ fun EchoListScreen(
 ) {
     val sheetState = rememberModalBottomSheetState()
     var isSheetOpen by remember { mutableStateOf(false) }
-    Scaffold(modifier = Modifier.fillMaxSize(),
-
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = { isSheetOpen = true }
-            ) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
-            }
+            GradientFAB { isSheetOpen = true }
         }
     ) { innerPadding ->
         Column(
