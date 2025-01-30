@@ -2,6 +2,7 @@ package com.vk.directop.memoriesjournal.core.data.playback
 
 import android.content.Context
 import android.media.MediaPlayer
+import android.util.Log
 import androidx.core.net.toUri
 import com.vk.directop.memoriesjournal.core.domain.playback.AudioPlayer
 import java.io.File
@@ -16,21 +17,25 @@ class AndroidAudioPlayer(
         stop()
 
         player = MediaPlayer().apply {
-            setDataSource(context, file.toUri())
-            prepare()
-            start()
+            try {
+                setDataSource(context, file.toUri())
+                prepare()
+                start()
 
-            setOnCompletionListener {
-                onCompletion()
-                stop()
-            }
+                setOnCompletionListener {
+                    onCompletion()
+                    stop()
+                }
 
-            setOnPreparedListener {
-                onProgress(0, duration.toLong())
-            }
+                setOnPreparedListener {
+                    onProgress(0, duration.toLong())
+                }
 
-            setOnBufferingUpdateListener { _, percent ->
-                onProgress(currentPosition.toLong(), duration.toLong())
+                setOnBufferingUpdateListener { _, percent ->
+                    onProgress(currentPosition.toLong(), duration.toLong())
+                }
+            } catch (e: Exception) {
+                Log.e("AudioPlayer", "Error while playing file: ${file.absolutePath}", e)
             }
         }
     }
