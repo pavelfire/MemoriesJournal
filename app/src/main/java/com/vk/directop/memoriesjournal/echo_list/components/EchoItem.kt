@@ -46,7 +46,7 @@ fun EchoItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.onSecondary)
                 .padding(16.dp)
         ) {
             Row(
@@ -58,8 +58,8 @@ fun EchoItem(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = InterFontFamily,
-
-                    )
+                    modifier = Modifier.weight(1f)
+                )
                 Text(
                     text = item.createdAt,
                     fontSize = 12.sp,

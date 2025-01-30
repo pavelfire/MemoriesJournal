@@ -47,13 +47,13 @@ fun EchoListScreen(
             modifier = modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .padding(16.dp)
         ) {
             Text(
                 text = "Your EchoJournal",
                 fontSize = 26.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = InterFontFamily,
+                modifier = Modifier.padding(16.dp)
             )
             if (state.records.isEmpty()) {
                 EmptyList()

@@ -1,11 +1,14 @@
 package com.vk.directop.memoriesjournal.echo_list
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vk.directop.memoriesjournal.core.data.AudioUseCase
 import com.vk.directop.memoriesjournal.core.data.EchoRecordEntity
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
 import com.vk.directop.memoriesjournal.echo_list.models.toItemListState
+import com.vk.directop.memoriesjournal.ui.theme.OnDarkBackground
+import com.vk.directop.memoriesjournal.ui.theme.OnLightBackground
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.onStart
@@ -49,6 +52,8 @@ class EchoListScreenViewModel(
 
     private fun startPlaying(file: File) {
         useCase.startPlaying(file)
+        Log.d("ThemeDebug", "Light surface: $OnLightBackground, Dark surface: $OnDarkBackground")
+
     }
 
     private fun stopPlaying() {
