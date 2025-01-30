@@ -2,14 +2,20 @@ package com.vk.directop.memoriesjournal.echo_list
 
 import androidx.compose.runtime.Immutable
 import com.vk.directop.memoriesjournal.R
+import com.vk.directop.memoriesjournal.core.data.EchoRecordEntity
 
 @Immutable
-data class EchoListItemState(
-    val title: String = "My Entry",
-    val mood: Mood = Mood.EXCITED
+data class EchoListItem(
+//    val title: String = "My Entry",
+//    val mood: Mood = Mood.EXCITED
+    val description: String,
+    val filePath: String,
+    val createdAt: Long,
+    val mood: Mood,
+    val tags: List<String>
 )
 
-enum class Mood{
+enum class Mood {
     EXCITED,
     NEUTRAL,
     PEACEFUL,
@@ -26,3 +32,11 @@ enum class Mood{
         }
     }
 }
+
+fun EchoRecordEntity.toItemListState(): EchoListItem = EchoListItem(
+    description = description,
+    filePath = filePath,
+    createdAt = createdAt,
+    mood = mood,
+    tags = tags
+)

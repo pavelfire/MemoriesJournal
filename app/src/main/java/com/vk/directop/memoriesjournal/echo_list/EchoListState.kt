@@ -4,5 +4,5 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class EchoListState(
-    val records: List<EchoListItemState> = emptyList()
+    val records: List<EchoListItem> = emptyList()
 )

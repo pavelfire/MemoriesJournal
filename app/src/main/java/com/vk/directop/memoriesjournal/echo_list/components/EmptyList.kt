@@ -37,7 +37,6 @@ fun EmptyList(
             imageVector = ImageVector.vectorResource(id = R.drawable.no_entries),
             contentDescription = "mood",
             modifier = Modifier
-
         )
         Text(
             text = "No Entries",

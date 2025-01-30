@@ -4,33 +4,75 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.vk.directop.memoriesjournal.echo_list.components.EchoList
 import com.vk.directop.memoriesjournal.echo_list.components.EmptyList
+import com.vk.directop.memoriesjournal.echo_list.components.RecordingBottomSheet
+import org.koin.androidx.compose.koinViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EchoListScreen(
     state: EchoListState,
+    onAction: (EchoListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        Text(
-            "Your EchoJournal"
-        )
-        if (state.records.isEmpty()) {
-            EmptyList()
-        } else {
-            EchoList(state.records)
+    val sheetState = rememberModalBottomSheetState()
+    var isSheetOpen by remember { mutableStateOf(false) }
+    Scaffold(modifier = Modifier.fillMaxSize(),
+
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { isSheetOpen = true }
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Add")
+            }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .padding(16.dp)
+        ) {
+            Text("Your EchoJournal")
+            if (state.records.isEmpty()) {
+                EmptyList()
+            } else {
+                EchoList(
+                    records = state.records,
+                    onAction = onAction
+                )
+            }
+        }
+        if (isSheetOpen) {
+            ModalBottomSheet(
+                onDismissRequest = { isSheetOpen = false },
+                sheetState = sheetState
+            ) {
+                RecordingBottomSheet(
+                    onClose = { isSheetOpen = false },
+                    onAction = onAction
+                )
+            }
         }
     }
 }
@@ -44,6 +86,7 @@ private fun EchoListScreenPreview() {
                 state = EchoListState(
                     recordsPreview
                 ),
+                onAction = {},
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.background)
                     .padding(innerPadding)
@@ -53,25 +96,74 @@ private fun EchoListScreenPreview() {
 }
 
 val recordsPreview = listOf(
-    EchoListItemState(
-        title = "My first Entry",
-        mood = Mood.EXCITED
+    EchoListItem(
+        description = "My first Entry",
+        mood = Mood.EXCITED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
     ),
-    EchoListItemState(
-        title = "My Entry",
-        mood = Mood.NEUTRAL
+    EchoListItem(
+        description = "My Entry",
+        mood = Mood.NEUTRAL,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
     ),
-    EchoListItemState(
-        title = "My third Entry",
-        mood = Mood.SAD
+    EchoListItem(
+        description = "My third Entry",
+        mood = Mood.SAD,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
     ),
-    EchoListItemState(
-        title = "My fourth Entry",
-        mood = Mood.STRESSED
+    EchoListItem(
+        description = "My fourth Entry",
+        mood = Mood.STRESSED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
     ),
-    EchoListItemState(
-        title = "My Entry",
-        mood = Mood.EXCITED
+    EchoListItem(
+        description = "My Entry",
+        mood = Mood.EXCITED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
     ),
-
-    )
+    EchoListItem(
+        description = "My first Entry",
+        mood = Mood.EXCITED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
+    ),
+    EchoListItem(
+        description = "My Entry",
+        mood = Mood.NEUTRAL,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
+    ),
+    EchoListItem(
+        description = "My third Entry",
+        mood = Mood.SAD,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
+    ),
+    EchoListItem(
+        description = "My fourth Entry",
+        mood = Mood.STRESSED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
+    ),
+    EchoListItem(
+        description = "My Entry",
+        mood = Mood.EXCITED,
+        createdAt = 34343434,
+        tags = listOf("sds", "dsfdfg"),
+        filePath = "depath of file"
+    ),
+)

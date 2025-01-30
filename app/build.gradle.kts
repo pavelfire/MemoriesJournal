@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.splashscreen)
 
     implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.lifecycle)
     ksp(libs.androidx.room.compiler)
     implementation(libs.sqlite.bundled)
 

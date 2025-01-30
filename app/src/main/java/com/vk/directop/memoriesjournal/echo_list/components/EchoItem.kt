@@ -17,23 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vk.directop.memoriesjournal.R
-import com.vk.directop.memoriesjournal.echo_list.EchoListItemState
+import com.vk.directop.memoriesjournal.echo_list.EchoListItem
+import com.vk.directop.memoriesjournal.echo_list.Mood
 import com.vk.directop.memoriesjournal.ui.theme.InterFontFamily
 import com.vk.directop.memoriesjournal.ui.theme.LightBackground
 
 @Composable
 fun EchoItem(
-    item: EchoListItemState,
+    item: EchoListItem,
     modifier: Modifier = Modifier
 ) {
     Row(
-        modifier = Modifier.padding(vertical = 8.dp)
+        modifier = modifier.padding(vertical = 8.dp)
     ) {
         Image(
             imageVector = ImageVector.vectorResource(id = item.mood.toDrawableRes()),
@@ -53,25 +51,25 @@ fun EchoItem(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = item.title,
+                    text = item.description,
                     fontSize = 16.sp,
                     fontFamily = InterFontFamily,
 
                     )
                 Text(
-                    text = "17:30",
+                    text = item.createdAt.toString(),
                     fontSize = 12.sp,
                     fontFamily = InterFontFamily,
                 )
             }
 
             Text(
-                text = "here record",
+                text = "here record ${item.filePath}",
                 fontSize = 12.sp,
                 fontFamily = InterFontFamily,
             )
             Text(
-                text = "#work",
+                text = "#tags ${item.tags}",
                 fontSize = 13.sp,
                 fontFamily = InterFontFamily,
             )
@@ -83,6 +81,12 @@ fun EchoItem(
 @Composable
 private fun EchoListItemPreview() {
     MaterialTheme {
-        EchoItem(EchoListItemState())
+        EchoItem(EchoListItem(
+            description = "My Entry 1",
+            mood = Mood.EXCITED,
+            createdAt = 34343434,
+            tags = listOf("sds", "dsfdfg"),
+            filePath = "path of file"
+        ))
     }
 }
