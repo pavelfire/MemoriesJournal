@@ -50,11 +50,6 @@ class EchoListScreenViewModel(
         if (isRecordingCompleted) {
             return
         }
-//        if (state.value.isRecording) {
-//            stopRecording()
-//        } else {
-//            startRecording()
-//        }
         when {
             state.value.isRecording && state.value.isPaused -> resumeRecording()
             state.value.isRecording -> stopRecording()
@@ -84,6 +79,7 @@ class EchoListScreenViewModel(
             )
         }
         Log.d("myTag", "stopRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
+        saveRecording("Oh marathon")
     }
 
     private fun togglePauseRecording() {

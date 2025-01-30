@@ -97,16 +97,23 @@ fun RecordingBottomSheet(
                     .background(MaterialTheme.colorScheme.secondary),
                 onClick = {
                     when {
-                        isRecording -> onAction(EchoListAction.OnStopRecord)
+                        isPaused && isRecording -> onAction(EchoListAction.OnPauseRecord)
                         isPaused -> onAction(EchoListAction.OnPauseRecord)
+                        isRecording -> {
+                            onAction(EchoListAction.OnStopRecord)
+                            onAction(EchoListAction.OnSaveRecord("Night marathon"))
+                            Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
+                            onAction(EchoListAction.OnCloseBottomSheet)
+                        }
+
                         else -> onAction(EchoListAction.OnStartRecord)
                     }
                 }
             ) {
                 Image(
                     imageVector = when {
+                        isPaused && isRecording -> ImageVector.vectorResource(id = R.drawable.microphone)
                         isRecording -> ImageVector.vectorResource(id = R.drawable.record_finish)
-                        isPaused -> ImageVector.vectorResource(id = R.drawable.microphone)
                         else -> ImageVector.vectorResource(id = R.drawable.microphone)
                     },
                     contentDescription = when {
@@ -120,40 +127,51 @@ fun RecordingBottomSheet(
             IconButton(
                 onClick = {//{onAction(EchoListAction.OnPauseRecord)
                     when {
+                        isPaused && isRecording -> onAction(EchoListAction.OnStopRecord)
                         isRecording -> onAction(EchoListAction.OnPauseRecord)
                         isPaused -> onAction(EchoListAction.OnStartRecord)
                         else -> onAction(EchoListAction.OnCloseBottomSheet)
                     }
                 }
             ) {
-                Image(
-                    imageVector = when {
-                        isRecording -> ImageVector.vectorResource(id = R.drawable.pause)
-                        isPaused -> ImageVector.vectorResource(id = R.drawable.check_button)
-                        else -> ImageVector.vectorResource(id = R.drawable.check_button)
-                    },
-                    contentDescription = when {
-                        isRecording -> "pause"
-                        isPaused -> "finish record"
-                        else -> "close"
-                    }
-                )
+                when {
+                    isPaused && isRecording -> Image(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
+                        contentDescription = "record control 2"
+                    )
+
+                    isRecording -> Image(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.pause),
+                        contentDescription = "record control 2"
+                    )
+
+                    isPaused -> Image(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
+                        contentDescription = "record control 2"
+                    )
+
+                    else -> Image(
+                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
+                        contentDescription = "record control 2"
+                    )
+                }
+
             }
 
-            IconButton(
-                onClick = {
-                    onAction(EchoListAction.OnSaveRecord("Night marathon"))
-                    Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
-                    onAction(EchoListAction.OnCloseBottomSheet)
-                }
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Star,
-                    contentDescription = "Add",
-                    tint = Color.White,
-                    modifier = Modifier.size(24.dp)
-                )
-            }
+//            IconButton(
+//                onClick = {
+//                    onAction(EchoListAction.OnSaveRecord("Night marathon"))
+//                    Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
+//                    onAction(EchoListAction.OnCloseBottomSheet)
+//                }
+//            ) {
+//                Icon(
+//                    imageVector = Icons.Default.Star,
+//                    contentDescription = "Add",
+//                    tint = Color.White,
+//                    modifier = Modifier.size(24.dp)
+//                )
+//            }
         }
     }
 }
