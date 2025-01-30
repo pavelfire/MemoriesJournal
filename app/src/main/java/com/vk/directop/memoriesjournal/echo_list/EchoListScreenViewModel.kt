@@ -30,6 +30,8 @@ class EchoListScreenViewModel(
             EchoListState()
         )
 
+    private var isRecording = false
+    private var isPaused = false
     private var currentFile: File? = null
 
     fun onAction(action: EchoListAction) {
@@ -44,10 +46,28 @@ class EchoListScreenViewModel(
 
     private fun startRecording() {
         currentFile = useCase.startRecording()
+        isRecording = true
+        isPaused = false
     }
 
     private fun stopRecording() {
         useCase.stopRecording()
+        isRecording = false
+        isPaused = false
+    }
+
+    fun pauseRecording() {
+        if (isRecording && !isPaused) {
+            useCase.pauseRecording()
+            isPaused = true
+        }
+    }
+
+    fun resumeRecording() {
+        if (isRecording && isPaused) {
+            useCase.resumeRecording()
+            isPaused = false
+        }
     }
 
     private fun startPlaying(item: ItemUi) {

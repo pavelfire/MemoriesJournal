@@ -28,6 +28,14 @@ class AudioRepository(
         recorder.stop()
     }
 
+    fun pauseRecording() {
+        recorder.pause()
+    }
+
+    fun resumeRecording() {
+        recorder.resume()
+    }
+
     suspend fun saveRecord(record: EchoRecordEntity) {
         dao.insertRecord(record)
     }
