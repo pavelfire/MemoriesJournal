@@ -6,11 +6,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.vk.directop.memoriesjournal.echo_list.EchoListAction
-import com.vk.directop.memoriesjournal.echo_list.EchoListItem
+import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 
 @Composable
 fun EchoList(
-    records: List<EchoListItem>,
+    records: List<ItemUi>,
     onAction: (EchoListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {

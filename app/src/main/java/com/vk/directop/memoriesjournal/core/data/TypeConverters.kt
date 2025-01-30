@@ -1,7 +1,7 @@
 package com.vk.directop.memoriesjournal.core.data
 
 import androidx.room.TypeConverter
-import com.vk.directop.memoriesjournal.echo_list.Mood
+import com.vk.directop.memoriesjournal.echo_list.models.Mood
 
 class MoodConverter {
     @TypeConverter

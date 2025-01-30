@@ -15,19 +15,21 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vk.directop.memoriesjournal.echo_list.EchoListItem
-import com.vk.directop.memoriesjournal.echo_list.Mood
+import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
+import com.vk.directop.memoriesjournal.echo_list.models.Mood
 import com.vk.directop.memoriesjournal.ui.theme.InterFontFamily
 import com.vk.directop.memoriesjournal.ui.theme.LightBackground
 
 @Composable
 fun EchoItem(
-    item: EchoListItem,
+    item: ItemUi,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -43,7 +45,7 @@ fun EchoItem(
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(16.dp))
-                .background(LightBackground)
+                .background(MaterialTheme.colorScheme.surface)
                 .padding(16.dp)
         ) {
             Row(
@@ -77,16 +79,19 @@ fun EchoItem(
     }
 }
 
-@Preview(showBackground = true, backgroundColor = 0xFF998855)
+//@Preview(showBackground = true, backgroundColor = 0xFF998855)
+@PreviewLightDark
 @Composable
 private fun EchoListItemPreview() {
     MaterialTheme {
-        EchoItem(EchoListItem(
+        EchoItem(
+            ItemUi(
             description = "My Entry 1",
             mood = Mood.EXCITED,
             createdAt = 34343434,
             tags = listOf("sds", "dsfdfg"),
             filePath = "path of file"
-        ))
+        )
+        )
     }
 }

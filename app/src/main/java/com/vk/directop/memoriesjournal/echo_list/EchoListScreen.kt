@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,7 +25,8 @@ import androidx.compose.ui.unit.dp
 import com.vk.directop.memoriesjournal.echo_list.components.EchoList
 import com.vk.directop.memoriesjournal.echo_list.components.EmptyList
 import com.vk.directop.memoriesjournal.echo_list.components.RecordingBottomSheet
-import org.koin.androidx.compose.koinViewModel
+import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
+import com.vk.directop.memoriesjournal.echo_list.models.Mood
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -88,78 +88,78 @@ private fun EchoListScreenPreview() {
                 ),
                 onAction = {},
                 modifier = Modifier
-                    .background(MaterialTheme.colorScheme.background)
                     .padding(innerPadding)
+                    .background(MaterialTheme.colorScheme.background)
             )
         }
     }
 }
 
 val recordsPreview = listOf(
-    EchoListItem(
+    ItemUi(
         description = "My first Entry",
         mood = Mood.EXCITED,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My Entry",
         mood = Mood.NEUTRAL,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My third Entry",
         mood = Mood.SAD,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My fourth Entry",
         mood = Mood.STRESSED,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My Entry",
         mood = Mood.EXCITED,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My first Entry",
         mood = Mood.EXCITED,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My Entry",
         mood = Mood.NEUTRAL,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My third Entry",
         mood = Mood.SAD,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My fourth Entry",
         mood = Mood.STRESSED,
         createdAt = 34343434,
         tags = listOf("sds", "dsfdfg"),
         filePath = "depath of file"
     ),
-    EchoListItem(
+    ItemUi(
         description = "My Entry",
         mood = Mood.EXCITED,
         createdAt = 34343434,

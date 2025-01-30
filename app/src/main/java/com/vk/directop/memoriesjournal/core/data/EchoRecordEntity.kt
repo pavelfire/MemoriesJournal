@@ -3,7 +3,7 @@ package com.vk.directop.memoriesjournal.core.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.vk.directop.memoriesjournal.echo_list.Mood
+import com.vk.directop.memoriesjournal.echo_list.models.Mood
 
 @Entity
 @TypeConverters(MoodConverter::class, TagsConverter::class)
