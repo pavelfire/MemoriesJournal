@@ -2,6 +2,7 @@ package com.vk.directop.memoriesjournal.echo_list.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vk.directop.memoriesjournal.echo_list.EchoListAction
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
 import com.vk.directop.memoriesjournal.ui.theme.InterFontFamily
@@ -31,6 +33,7 @@ import com.vk.directop.memoriesjournal.ui.theme.LightBackground
 @Composable
 fun EchoItem(
     item: ItemUi,
+    onAction: (EchoListAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
@@ -58,7 +61,11 @@ fun EchoItem(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     fontFamily = InterFontFamily,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier
+                        .weight(1f)
+                        .clickable {
+                            onAction(EchoListAction.OnItemClick(item))
+                        }
                 )
                 Text(
                     text = item.createdAt,
@@ -71,7 +78,7 @@ fun EchoItem(
                 currentTime = "6:15",
                 totalTime = "12:30",
                 progress = 0.5f,
-                onPlayPauseClick = {}
+                onPlayPauseClick = { onAction(EchoListAction.OnPlayClick(item.filePath)) }
             )
             TagList(item.tags)
         }
@@ -84,13 +91,14 @@ fun EchoItem(
 private fun EchoListItemPreview() {
     MaterialTheme {
         EchoItem(
-            ItemUi(
+            item = ItemUi(
                 description = "My Entry 1",
                 mood = Mood.EXCITED,
                 createdAt = "12/03/25 15:20",
                 tags = listOf("sds", "dsfdfg"),
                 filePath = "path of file"
-            )
+            ),
+            onAction = {}
         )
     }
 }

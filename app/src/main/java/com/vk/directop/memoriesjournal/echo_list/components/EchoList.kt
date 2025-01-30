@@ -18,11 +18,10 @@ fun EchoList(
 ) {
     LazyColumn(modifier.padding(16.dp)) {
         items(records) { record ->
-            EchoItem(item = record,
-                modifier = Modifier
-                    .clickable {
-                        onAction(EchoListAction.OnItemClick(record))
-                    })
+            EchoItem(
+                item = record,
+                onAction = onAction
+            )
         }
     }
 }

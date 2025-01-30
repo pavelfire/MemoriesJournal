@@ -35,10 +35,11 @@ class EchoListScreenViewModel(
 
     fun onAction(action: EchoListAction) {
         when (action) {
-            is EchoListAction.OnItemClick -> startPlaying(File(action.record.filePath))
+            is EchoListAction.OnItemClick -> {}
             is EchoListAction.OnSaveRecord -> saveRecording(action.description)
             EchoListAction.OnStartRecord -> startRecording()
             EchoListAction.OnStopRecord -> stopRecording()
+            is EchoListAction.OnPlayClick -> startPlaying(action.filePath)
         }
     }
 
@@ -50,8 +51,8 @@ class EchoListScreenViewModel(
         useCase.stopRecording()
     }
 
-    private fun startPlaying(file: File) {
-        useCase.startPlaying(file)
+    private fun startPlaying(filePath: String) {
+        useCase.startPlaying(File(filePath))
         Log.d("ThemeDebug", "Light surface: $OnLightBackground, Dark surface: $OnDarkBackground")
 
     }
