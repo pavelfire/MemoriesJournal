@@ -98,6 +98,7 @@ private fun EchoListScreenPreview() {
 
 val recordsPreview = listOf(
     ItemUi(
+        id = "232323",
         description = "My first Entry",
         mood = Mood.EXCITED,
         createdAt = "12/03/25 15:20",
@@ -105,6 +106,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My Entry",
         mood = Mood.NEUTRAL,
         createdAt = "12/03/25 15:20",
@@ -112,6 +114,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My third Entry",
         mood = Mood.SAD,
         createdAt = "12/03/25 15:20",
@@ -119,6 +122,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My fourth Entry",
         mood = Mood.STRESSED,
         createdAt = "12/03/25 15:20",
@@ -126,6 +130,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My Entry",
         mood = Mood.EXCITED,
         createdAt = "12/03/25 15:20",
@@ -133,6 +138,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My first Entry",
         mood = Mood.EXCITED,
         createdAt = "12/03/25 15:20",
@@ -140,6 +146,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My Entry",
         mood = Mood.NEUTRAL,
         createdAt = "12/03/25 15:20",
@@ -147,6 +154,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My third Entry",
         mood = Mood.SAD,
         createdAt = "12/03/25 15:20",
@@ -154,6 +162,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My fourth Entry",
         mood = Mood.STRESSED,
         createdAt = "12/03/25 15:20",
@@ -161,6 +170,7 @@ val recordsPreview = listOf(
         filePath = "depath of file"
     ),
     ItemUi(
+        id = "232323",
         description = "My Entry",
         mood = Mood.EXCITED,
         createdAt = "12/03/25 15:20",

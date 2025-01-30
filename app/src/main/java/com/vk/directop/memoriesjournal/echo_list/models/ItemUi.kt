@@ -7,6 +7,8 @@ import com.vk.directop.memoriesjournal.core.presentation.util.toFormattedDate
 
 @Immutable
 data class ItemUi(
+    val id: String,
+    val isPlaying: Boolean = false,
     val description: String,
     val filePath: String,
     val createdAt: String,
@@ -33,6 +35,7 @@ enum class Mood {
 }
 
 fun EchoRecordEntity.toItemListState(): ItemUi = ItemUi(
+    id = id,
     description = description,
     filePath = filePath,
     createdAt = createdAt.toFormattedDate(),

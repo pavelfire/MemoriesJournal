@@ -74,11 +74,11 @@ fun EchoItem(
                 )
             }
             PlayPanel(
-                isPlaying = true,
+                isPlaying = item.isPlaying,
                 currentTime = "6:15",
                 totalTime = "12:30",
                 progress = 0.5f,
-                onPlayPauseClick = { onAction(EchoListAction.OnPlayClick(item.filePath)) }
+                onPlayPauseClick = { onAction(EchoListAction.OnPlayClick(item)) }
             )
             TagList(item.tags)
         }
@@ -92,6 +92,7 @@ private fun EchoListItemPreview() {
     MaterialTheme {
         EchoItem(
             item = ItemUi(
+                id = "sdfdf",
                 description = "My Entry 1",
                 mood = Mood.EXCITED,
                 createdAt = "12/03/25 15:20",
