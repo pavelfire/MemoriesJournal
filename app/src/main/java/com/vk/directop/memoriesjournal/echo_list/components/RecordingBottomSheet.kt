@@ -12,23 +12,13 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.vectorResource
@@ -56,6 +46,7 @@ fun RecordingBottomSheet(
     ) {
         Text(
             text = when {
+                isRecording && isPaused -> "Pause..."
                 isRecording -> "Recording your memories..."
                 isPaused -> "Recording paused"
                 else -> "Tap to start recording"
@@ -125,7 +116,7 @@ fun RecordingBottomSheet(
             }
 
             IconButton(
-                onClick = {//{onAction(EchoListAction.OnPauseRecord)
+                onClick = {
                     when {
                         isPaused && isRecording -> onAction(EchoListAction.OnStopRecord)
                         isRecording -> onAction(EchoListAction.OnPauseRecord)
@@ -134,79 +125,22 @@ fun RecordingBottomSheet(
                     }
                 }
             ) {
-                when {
-                    isPaused && isRecording -> Image(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
-                        contentDescription = "record control 2"
-                    )
+                Image(
+                    imageVector = when {
+                        isPaused && isRecording -> ImageVector.vectorResource(id = R.drawable.check_button)
 
-                    isRecording -> Image(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.pause),
-                        contentDescription = "record control 2"
-                    )
+                        isRecording -> ImageVector.vectorResource(id = R.drawable.pause)
 
-                    isPaused -> Image(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
-                        contentDescription = "record control 2"
-                    )
+                        isPaused -> ImageVector.vectorResource(id = R.drawable.check_button)
 
-                    else -> Image(
-                        imageVector = ImageVector.vectorResource(id = R.drawable.check_button),
-                        contentDescription = "record control 2"
-                    )
-                }
-
+                        else -> ImageVector.vectorResource(id = R.drawable.check_button)
+                    },
+                    contentDescription = "record control 3"
+                )
             }
-
-//            IconButton(
-//                onClick = {
-//                    onAction(EchoListAction.OnSaveRecord("Night marathon"))
-//                    Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
-//                    onAction(EchoListAction.OnCloseBottomSheet)
-//                }
-//            ) {
-//                Icon(
-//                    imageVector = Icons.Default.Star,
-//                    contentDescription = "Add",
-//                    tint = Color.White,
-//                    modifier = Modifier.size(24.dp)
-//                )
-//            }
         }
     }
 }
-
-@Composable
-fun RecordingBottomSheetOld(
-    onClose: () -> Unit,
-    onAction: (EchoListAction) -> Unit
-) {
-    var description by remember { mutableStateOf("") }
-    val context = LocalContext.current
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 16.dp)
-            .padding(horizontal = 16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        OutlinedTextField(
-            value = description,
-            onValueChange = { description = it },
-            label = { Text("Description") }
-        )
-        Spacer(Modifier.height(16.dp))
-        Button(onClick = {
-            onAction(EchoListAction.OnSaveRecord(description))
-            Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
-            onClose()
-        }) {
-            Text("Save")
-        }
-    }
-}
-
 
 @PreviewLightDark
 @Composable

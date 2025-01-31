@@ -55,7 +55,6 @@ class EchoListScreenViewModel(
             state.value.isRecording -> stopRecording()
             else -> startRecording()
         }
-        Log.d("myTag", "toggleRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun startRecording() {
@@ -66,7 +65,6 @@ class EchoListScreenViewModel(
                 isRecording = true
             )
         }
-        Log.d("myTag", "startRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun stopRecording() {
@@ -78,7 +76,6 @@ class EchoListScreenViewModel(
                 isRecording = false
             )
         }
-        Log.d("myTag", "stopRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
         saveRecording("Oh marathon")
     }
 
@@ -88,7 +85,6 @@ class EchoListScreenViewModel(
         } else {
             pauseRecording()
         }
-        Log.d("myTag", "togglePauseRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun pauseRecording() {
@@ -101,7 +97,6 @@ class EchoListScreenViewModel(
                 )
             }
         }
-        Log.d("myTag", "pauseRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
     private fun resumeRecording() {
@@ -114,10 +109,9 @@ class EchoListScreenViewModel(
                 )
             }
         }
-        Log.d("myTag", "resumeRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}")
     }
 
-    private fun closeBottomSheet(){
+    private fun closeBottomSheet() {
         isRecordingCompleted = false
     }
 
@@ -186,6 +180,10 @@ class EchoListScreenViewModel(
     }
 
     private fun saveRecording(description: String) {
+        Log.d(
+            "myTag",
+            "saveRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}"
+        )
         isRecordingCompleted = false
         currentFile?.let { file ->
             val record = EchoRecordEntity(
