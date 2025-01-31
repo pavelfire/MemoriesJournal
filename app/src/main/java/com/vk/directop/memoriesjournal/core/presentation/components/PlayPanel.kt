@@ -1,4 +1,4 @@
-package com.vk.directop.memoriesjournal.echo_list.components
+package com.vk.directop.memoriesjournal.core.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +29,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import java.util.Locale
 
 @Composable
 fun PlayPanel(
