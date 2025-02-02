@@ -33,6 +33,7 @@ import com.vk.directop.memoriesjournal.core.presentation.components.PlayPanel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EchoEditScreen(
+    id: String,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -89,7 +90,7 @@ fun EchoEditScreen(
                 )
                 Spacer(Modifier.height(16.dp))
                 TextField(
-                    value = "Add description",
+                    value = "Add description id=$id",
                     onValueChange = {}
                 )
             }
@@ -98,7 +99,7 @@ fun EchoEditScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Button(
-                    onClick = {  },
+                    onClick = { },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
@@ -109,7 +110,7 @@ fun EchoEditScreen(
                 }
 
                 Button(
-                    onClick = {  },
+                    onClick = { },
                     modifier = Modifier
                         .weight(2f)
                         .height(48.dp),
@@ -125,5 +126,7 @@ fun EchoEditScreen(
 @Preview
 @Composable
 private fun EchoEditScreenPreview() {
-    EchoEditScreen()
+    EchoEditScreen(
+        id = "preview"
+    )
 }

@@ -2,11 +2,11 @@ package com.vk.directop.memoriesjournal.core.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed interface Route {
+sealed interface Destination {
 
     @Serializable
-    data object EchoList : Route
+    data object EchoList : Destination
 
     @Serializable
-    data object EchoEdit : Route
+    data class EchoEdit(val id: String) : Destination
 }

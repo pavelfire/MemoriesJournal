@@ -15,13 +15,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.vk.directop.memoriesjournal.core.navigation.Route
+import androidx.navigation.toRoute
+import com.vk.directop.memoriesjournal.core.navigation.Destination
+import com.vk.directop.memoriesjournal.core.navigation.NavigationAction
+import com.vk.directop.memoriesjournal.core.navigation.Navigator
+import com.vk.directop.memoriesjournal.core.presentation.util.ObserveAsEvents
 import com.vk.directop.memoriesjournal.echo_edit.EchoEditScreen
 import com.vk.directop.memoriesjournal.echo_list.EchoListAction
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreen
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreenViewModel
 import com.vk.directop.memoriesjournal.ui.theme.MemoriesJournalTheme
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +40,24 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             val navController = rememberNavController()
+            val navigator = koinInject<Navigator>()
+
+            ObserveAsEvents(flow = navigator.navigationActions) { action ->
+                when (action) {
+                    is NavigationAction.Navigate -> navController.navigate(
+                        action.destination
+                    ) {
+                        action.navOptions(this)
+                    }
+
+                    NavigationAction.NavigateUp -> navController.navigateUp()
+                }
+            }
             NavHost(
                 navController = navController,
-                startDestination = Route.EchoList,
+                startDestination = Destination.EchoList,
             ) {
-                composable<Route.EchoList> {
+                composable<Destination.EchoList> {
                     MemoriesJournalTheme {
                         val viewModel = koinViewModel<EchoListScreenViewModel>()
                         val state by viewModel.state.collectAsStateWithLifecycle()
@@ -47,13 +65,6 @@ class MainActivity : ComponentActivity() {
                         EchoListScreen(
                             state = state,
                             onAction = { action ->
-                                when (action) {
-                                    is EchoListAction.OnOpenEchoEdit -> {
-                                        navController.navigate(Route.EchoEdit)
-                                    }
-
-                                    else -> {}
-                                }
                                 viewModel.onAction(action)
                             },
                             modifier = Modifier
@@ -61,8 +72,11 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                 }
-                composable<Route.EchoEdit> {
-                    EchoEditScreen()
+                composable<Destination.EchoEdit> {
+                    val args = it.toRoute<Destination.EchoEdit>()
+                    EchoEditScreen(
+                        id = args.id
+                    )
                 }
             }
 

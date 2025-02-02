@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vk.directop.memoriesjournal.core.data.AudioUseCase
 import com.vk.directop.memoriesjournal.core.data.EchoRecordEntity
+import com.vk.directop.memoriesjournal.core.navigation.Destination
+import com.vk.directop.memoriesjournal.core.navigation.Navigator
 import com.vk.directop.memoriesjournal.core.presentation.util.formatTime
 import com.vk.directop.memoriesjournal.echo_list.models.ItemUi
 import com.vk.directop.memoriesjournal.echo_list.models.Mood
@@ -19,7 +21,8 @@ import java.io.File
 import java.util.UUID
 
 class EchoListScreenViewModel(
-    private val useCase: AudioUseCase
+    private val useCase: AudioUseCase,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(EchoListState())
@@ -176,10 +179,6 @@ class EchoListScreenViewModel(
     }
 
     private fun saveRecording(description: String) {
-        Log.d(
-            "myTag",
-            "saveRecording isRecording = = ${state.value.isRecording} pause = = ${state.value.isPaused}"
-        )
         isRecordingCompleted = false
         currentFile?.let { file ->
             val record = EchoRecordEntity(
@@ -199,6 +198,9 @@ class EchoListScreenViewModel(
                         }
                     )
                 }
+                navigator.navigate(
+                    destination = Destination.EchoEdit(record.id),
+                )
             }
         }
     }
