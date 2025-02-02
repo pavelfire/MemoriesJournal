@@ -5,6 +5,7 @@ plugins {
 
     alias(libs.plugins.ksp)
     alias(libs.plugins.room)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -55,8 +56,9 @@ dependencies {
     implementation(libs.androidx.lifecycle)
     ksp(libs.androidx.room.compiler)
     implementation(libs.sqlite.bundled)
-
     implementation(libs.bundles.koin)
+    implementation(libs.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
