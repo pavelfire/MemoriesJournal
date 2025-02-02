@@ -40,7 +40,7 @@ class EchoListScreenViewModel(
     fun onAction(action: EchoListAction) {
         when (action) {
             is EchoListAction.OnItemClick -> {}
-            is EchoListAction.OnSaveRecord -> saveRecording(action.description)
+            is EchoListAction.OnSaveRecord -> {}//saveRecording(action.description)
             EchoListAction.OnStartRecord -> toggleRecording()
             EchoListAction.OnPauseRecord -> togglePauseRecording()
             EchoListAction.OnStopRecord -> stopRecording()
@@ -191,13 +191,13 @@ class EchoListScreenViewModel(
             )
             viewModelScope.launch {
                 useCase.saveRecord(record)
-                _state.update {
-                    it.copy(
-                        records = useCase.getAllRecords().map { entity ->
-                            entity.toItemListState()
-                        }
-                    )
-                }
+//                _state.update {
+//                    it.copy(
+//                        records = useCase.getAllRecords().map { entity ->
+//                            entity.toItemListState()
+//                        }
+//                    )
+//                }
                 navigator.navigate(
                     destination = Destination.EchoEdit(record.id),
                 )

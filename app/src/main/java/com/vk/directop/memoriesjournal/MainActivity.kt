@@ -21,7 +21,6 @@ import com.vk.directop.memoriesjournal.core.navigation.NavigationAction
 import com.vk.directop.memoriesjournal.core.navigation.Navigator
 import com.vk.directop.memoriesjournal.core.presentation.util.ObserveAsEvents
 import com.vk.directop.memoriesjournal.echo_edit.EchoEditScreen
-import com.vk.directop.memoriesjournal.echo_list.EchoListAction
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreen
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreenViewModel
 import com.vk.directop.memoriesjournal.ui.theme.MemoriesJournalTheme
@@ -79,7 +78,6 @@ class MainActivity : ComponentActivity() {
                     )
                 }
             }
-
         }
     }
 }
