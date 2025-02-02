@@ -73,7 +73,9 @@ fun RecordingBottomSheet(
             verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(
-                onClick = { onAction(EchoListAction.OnCloseBottomSheet) }
+                onClick = {
+                    onAction(EchoListAction.OnOpenEchoEdit(recordId = "id"))
+                }
             ) {
                 Image(
                     imageVector = ImageVector.vectorResource(id = R.drawable.cancel),
@@ -150,7 +152,7 @@ private fun RecordingBottomSheetPreview() {
             isRecording = true,
             isPaused = true,
             elapsedTime = "545L",
-            onAction = {}
+            onAction = {},
         )
     }
 }

@@ -60,7 +60,7 @@ fun EchoListScreen(
             } else {
                 EchoList(
                     records = state.records,
-                    onAction = onAction
+                    onAction = onAction,
                 )
             }
         }

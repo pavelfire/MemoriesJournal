@@ -43,6 +43,7 @@ class EchoListScreenViewModel(
             EchoListAction.OnStopRecord -> stopRecording()
             is EchoListAction.OnPlayClick -> startPlaying(action.record)
             EchoListAction.OnCloseBottomSheet -> closeBottomSheet()
+            is EchoListAction.OnOpenEchoEdit -> {}
         }
     }
 
@@ -174,11 +175,6 @@ class EchoListScreenViewModel(
         )
     }
 
-
-    private fun stopPlaying() {
-        useCase.stopPlaying()
-    }
-
     private fun saveRecording(description: String) {
         Log.d(
             "myTag",
@@ -204,7 +200,6 @@ class EchoListScreenViewModel(
                     )
                 }
             }
-
         }
     }
 
