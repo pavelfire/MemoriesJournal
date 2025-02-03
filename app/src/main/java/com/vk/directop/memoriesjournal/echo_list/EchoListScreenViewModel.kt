@@ -40,13 +40,17 @@ class EchoListScreenViewModel(
     fun onAction(action: EchoListAction) {
         when (action) {
             is EchoListAction.OnItemClick -> {}
-            is EchoListAction.OnSaveRecord -> {}//saveRecording(action.description)
             EchoListAction.OnStartRecord -> toggleRecording()
             EchoListAction.OnPauseRecord -> togglePauseRecording()
-            EchoListAction.OnStopRecord -> stopRecording()
             is EchoListAction.OnPlayClick -> startPlaying(action.record)
             EchoListAction.OnCloseBottomSheet -> closeBottomSheet()
-            is EchoListAction.OnOpenEchoEdit -> {}
+            EchoListAction.OnNavigateUp -> onNavigateUp()
+        }
+    }
+
+    private fun onNavigateUp() {
+        viewModelScope.launch {
+            navigator.navigateUp()
         }
     }
 
@@ -84,10 +88,14 @@ class EchoListScreenViewModel(
     }
 
     private fun togglePauseRecording() {
-        if (state.value.isPaused) {
-            resumeRecording()
-        } else {
-            pauseRecording()
+        when {
+            !state.value.isPaused && !state.value.isRecording -> closeBottomSheet()
+            state.value.isRecording && state.value.isPaused -> {
+                closeBottomSheet()
+                stopRecording()
+            }
+
+            state.value.isRecording && !state.value.isPaused -> pauseRecording()
         }
     }
 

@@ -74,7 +74,7 @@ fun RecordingBottomSheet(
         ) {
             IconButton(
                 onClick = {
-                    onAction(EchoListAction.OnOpenEchoEdit(recordId = "id"))
+                    onAction(EchoListAction.OnCloseBottomSheet)
                 }
             ) {
                 Image(
@@ -89,18 +89,7 @@ fun RecordingBottomSheet(
                     .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.secondary),
                 onClick = {
-                    when {
-                        isPaused && isRecording -> onAction(EchoListAction.OnPauseRecord)
-                        isPaused -> onAction(EchoListAction.OnPauseRecord)
-                        isRecording -> {
-                            onAction(EchoListAction.OnStopRecord)
-                            onAction(EchoListAction.OnSaveRecord("Night marathon"))
-                            Toast.makeText(context, "Recording Saved", Toast.LENGTH_SHORT).show()
-                            onAction(EchoListAction.OnCloseBottomSheet)
-                        }
-
-                        else -> onAction(EchoListAction.OnStartRecord)
-                    }
+                    onAction(EchoListAction.OnStartRecord)
                 }
             ) {
                 Image(
@@ -120,10 +109,8 @@ fun RecordingBottomSheet(
             IconButton(
                 onClick = {
                     when {
-                        isPaused && isRecording -> onAction(EchoListAction.OnStopRecord)
-                        isRecording -> onAction(EchoListAction.OnPauseRecord)
-                        isPaused -> onAction(EchoListAction.OnStartRecord)
-                        else -> onAction(EchoListAction.OnCloseBottomSheet)
+                        !isPaused && !isRecording -> onAction(EchoListAction.OnCloseBottomSheet)
+                        else -> onAction(EchoListAction.OnPauseRecord)
                     }
                 }
             ) {
