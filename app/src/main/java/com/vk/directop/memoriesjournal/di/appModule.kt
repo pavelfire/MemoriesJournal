@@ -10,6 +10,7 @@ import com.vk.directop.memoriesjournal.core.data.recorder.AndroidAudioRecorder
 import com.vk.directop.memoriesjournal.core.navigation.DefaultNavigator
 import com.vk.directop.memoriesjournal.core.navigation.Destination
 import com.vk.directop.memoriesjournal.core.navigation.Navigator
+import com.vk.directop.memoriesjournal.echo_edit.EchoEditViewModel
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreenViewModel
 import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModelOf
@@ -40,4 +41,5 @@ val appModule = module {
     single { File(androidApplication().cacheDir, "audio_records") }
 
     viewModelOf(::EchoListScreenViewModel)
+    viewModelOf(::EchoEditViewModel)
 }

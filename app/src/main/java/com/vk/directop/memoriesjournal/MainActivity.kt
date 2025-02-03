@@ -21,6 +21,7 @@ import com.vk.directop.memoriesjournal.core.navigation.NavigationAction
 import com.vk.directop.memoriesjournal.core.navigation.Navigator
 import com.vk.directop.memoriesjournal.core.presentation.util.ObserveAsEvents
 import com.vk.directop.memoriesjournal.echo_edit.EchoEditScreen
+import com.vk.directop.memoriesjournal.echo_edit.EchoEditViewModel
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreen
 import com.vk.directop.memoriesjournal.echo_list.EchoListScreenViewModel
 import com.vk.directop.memoriesjournal.ui.theme.MemoriesJournalTheme
@@ -73,8 +74,12 @@ class MainActivity : ComponentActivity() {
                 }
                 composable<Destination.EchoEdit> {
                     val args = it.toRoute<Destination.EchoEdit>()
+                    val viewModel = koinViewModel<EchoEditViewModel>()
                     EchoEditScreen(
-                        id = args.id
+                        id = args.id,
+                        onAction = { action ->
+                            viewModel.onAction(action)
+                        },
                     )
                 }
             }

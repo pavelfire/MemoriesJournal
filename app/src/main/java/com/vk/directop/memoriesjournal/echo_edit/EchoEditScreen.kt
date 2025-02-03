@@ -34,6 +34,7 @@ import com.vk.directop.memoriesjournal.core.presentation.components.PlayPanel
 @Composable
 fun EchoEditScreen(
     id: String,
+    onAction: (EchoEditAction) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -41,7 +42,7 @@ fun EchoEditScreen(
             TopAppBar(
                 title = { Text("New Entry") },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(onClick = { onAction(EchoEditAction.OnNavigateUp) }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
                             contentDescription = "Back"
@@ -99,7 +100,7 @@ fun EchoEditScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 Button(
-                    onClick = { },
+                    onClick = { onAction(EchoEditAction.OnNavigateUp) },
                     modifier = Modifier
                         .weight(1f)
                         .height(48.dp),
@@ -127,6 +128,7 @@ fun EchoEditScreen(
 @Composable
 private fun EchoEditScreenPreview() {
     EchoEditScreen(
-        id = "preview"
+        id = "preview",
+        onAction = {}
     )
 }
